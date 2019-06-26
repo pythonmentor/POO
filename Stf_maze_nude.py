@@ -1,3 +1,7 @@
+# -tc- tu auras avantage à représenter le labyrinthe
+# -tc- plus simplement, par exemple avec une liste
+# -tc- de position (ligne, colonne) représentant les
+# -tc- positions des murs
 # define the maze structure
 maze = [
     "***P00G0*******",  # 0
@@ -19,6 +23,7 @@ maze = [
 
 def welcome():
     print("\nPlease, use your keyboard to move into the maze:\n4 = left, 6 = right, 8 = up, 2 = down.\n\nAnd get the maximum G = gifts!\n")
+    # -tc- c'est pareil que for ligne in maze. Enlever le len(maze)
     for i in maze[:len(maze)]:
         print(i)
 
@@ -27,10 +32,14 @@ welcome()
 
 
 def display():
+    # -tc- le nom i est mal choisi
     for i in maze:
         print(i)
 
 
+# -tc- les chaines de caractère possède déjà une methode replace().
+# -tc- cette ne sera toutefois pas utile si tu représentes maze de manière
+# -tc- à te simplifier la vie.
 def replace(row, i, char):
     """slice to enable characters substitution according to coordinates"""
     s = row[: i] + char + row[i + 1:]
@@ -41,6 +50,7 @@ hits = []   # point collector
 
 
 def counter():
+    # -tc- [list(row) for row in maze] éviter les compréhensions avec deux for
     matrix = [col for row in maze for col in row]
     hits.append(matrix.count(maze[y][x] == "G"))
     score = len(hits)
@@ -51,12 +61,16 @@ def counter():
         print("Too bad, you didn't take enough gits! Try again ;-)")
 
 
+# -tc- mettre le code ci-dessous dans une fonction
+
 y = 0     # vertical start position
 x = 3     # horizontal start position
 
 
 while maze[y] != 14:
     a = input()
+    # -tc- à partir de là, ça devient complexe et répétitif et la poo te permettra de
+    # -tc- réduire à quelque lignes.
     if a == "4":    # left
         if maze[y][x - 1] == "G":
             maze[y] = replace(maze[y], x - 1, "P")
@@ -110,5 +124,9 @@ while maze[y] != 14:
             display()
 
 
-
+# -tc- créer une fonction main() contenu le code de ton
+# -tc- application
+def main():
+    welcome()
+    # -tc- suite du code
 
